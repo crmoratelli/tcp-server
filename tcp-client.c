@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 
 	/* Aguarda o recebimento de dados do servidor. 
 	 * Enquanto n for maior que 0. */
-    while ( (n = read(sockfd, recvBuff, sizeof(recvBuff)-1)) > 0)
+    while ( (n = recv(sockfd, recvBuff, sizeof(recvBuff)-1, 0)) > 0)
     {
 		/* Coloca null no final da string. */
         recvBuff[n] = '\0';
