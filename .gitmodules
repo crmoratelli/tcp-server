@@ -1,4 +1,0 @@
-[submodule "udp-server"]
-	path = udp-server
-	url = https://github.com/crmoratelli/udp-server.git
-	branch = master
