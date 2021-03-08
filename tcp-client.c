@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
     /*Cria o Socket */
     if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) < 0)
     {
-        printf("\n Error : Could not create socket \n");
+        perror("socket");
         return 1;
     } 
 
@@ -40,15 +40,15 @@ int main(int argc, char *argv[])
 
     if(inet_pton(AF_INET, argv[1], &serv_addr.sin_addr)<=0)
     {
-        printf("\n inet_pton error occured\n");
+        perror("inet_pton");
         return 1;
     } 
 
 	/* Conecta ao servidor. */
     if( connect(sockfd, (struct sockaddr *)&serv_addr, sizeof(serv_addr)) < 0)
     {
-       printf("\n Error : Connect Failed \n");
-       return 1;
+    	perror("connect");
+       	return 1;
     } 
 
 	/* Aguarda o recebimento de dados do servidor. 
@@ -59,13 +59,8 @@ int main(int argc, char *argv[])
         recvBuff[n] = '\0';
         if(fputs(recvBuff, stdout) == EOF)
         {
-            printf("\n Error : Fputs error\n");
+            perror("fputs");
         }
-    } 
-
-    if(n < 0)
-    {
-        printf("\n Read error \n");
     } 
 
     return 0;

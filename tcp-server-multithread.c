@@ -55,7 +55,11 @@ int main(int argc, char *argv[])
     pthread_t thr;
 
     /* Cria o Socket: SOCK_STREAM = TCP */
-    listenfd = socket(AF_INET, SOCK_STREAM, 0);
+    if ( (listenfd = socket(AF_INET, SOCK_STREAM, 0)) < 0){
+    	perror("socket");
+    	return 1;
+    }
+
     memset(&serv_addr, 0, sizeof(serv_addr));
 
 	/* Configura servidor para receber conexoes de qualquer endereço:
@@ -65,7 +69,10 @@ int main(int argc, char *argv[])
     serv_addr.sin_port = htons(5000); 
 
 	/* Associa o socket a estrutura sockaddr_in */
-    bind(listenfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)); 
+    if (bind(listenfd, (struct sockaddr*)&serv_addr, sizeof(serv_addr)) < 0){
+    	perror("bind");
+    	return 1;
+    } 
 
 	/* Inicia a escuta na porta */
     listen(listenfd, 10); 
